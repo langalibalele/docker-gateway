@@ -1,0 +1,67 @@
+version: "3.6"
+
+services:
+  mosquitto:
+    image: mosquitto
+    ports:
+      - 1883:1883
+    volumes:
+      - ./configuration/mosquitto:/ect/mosquitto
+
+  chirpstack-gateway-bridge:
+    image: dirkneethling/chirpstack-gateway-bridge:1
+    ports:
+      - 1700:1700/udp
+    volumes:
+      - ./configuration/chirpstack-gateway-bridge:/etc/chirpstack-gateway-bridge
+    depends_on:
+      - mosquitto
+      - postgresql
+      - redis
+
+  chirpstack-network-server:
+    image: dirkneethling/chirpstack-network-server:1
+    volumes:
+      - ./configuration/chirpstack-network-server:/etc/chirpstack-network-server
+    depends_on:
+      - mosquitto
+      - postgresql
+      - redis
+
+  chirpstack-application-server:
+    image: dirkneethling/chirpstack-application-server:1
+    ports:
+      - 8080:8080
+    volumes:
+      - ./configuration/chirpstack-application-server:/etc/chirpstack-application-server
+    depends_on:
+      - mosquitto
+      - postgresql
+      - redis
+
+  postgresql:
+    image: postgres:9.6-alpine
+    environment:
+      - POSTGRES_PASSWORD=root
+    volumes:
+      - ./configuration/postgresql/initdb:/docker-entrypoint-initdb.d
+      - postgresqldata:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+  redis:
+    image: redis:5-alpine
+    volumes:
+      - redisdata:/data
+
+  l2w:
+    #build: .
+    image: dirkneethling/l2w:2
+    volumes:
+      - ./configuration/l2w:/etc/l2w
+    depends_on:
+      - mosquitto
+
+volumes:
+  postgresqldata:
+  redisdata:
