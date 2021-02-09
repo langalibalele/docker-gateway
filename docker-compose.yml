@@ -56,7 +56,7 @@ services:
 
   l2w:
     #build: .
-    image: dirkneethling/l2w:latest
+    image: dirkneethling/l2w:3
     volumes:
       - ./configuration/l2w:/etc/l2w
     depends_on:
