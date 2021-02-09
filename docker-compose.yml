@@ -2,7 +2,7 @@ version: "3.6"
 
 services:
   mosquitto:
-    image: mosquitto
+    image: eclipse-mosquitto
     ports:
       - 1883:1883
     volumes:
@@ -56,7 +56,7 @@ services:
 
   l2w:
     #build: .
-    image: dirkneethling/l2w:2
+    image: dirkneethling/l2w:latest
     volumes:
       - ./configuration/l2w:/etc/l2w
     depends_on:
