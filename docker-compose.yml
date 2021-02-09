@@ -13,6 +13,7 @@ services:
     volumes:
       - ./configuration/mosquitto:/ect/mosquitto
       - ./configuration/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - ./configuration/mosquitto/ca.crt:/mosquitto/certs/ca.crt
     #command: ["mosquitto", "-c", "/etc/mosquitto/mosquitto.conf", "-v"]
 
   chirpstack-gateway-bridge:
