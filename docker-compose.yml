@@ -68,7 +68,7 @@ services:
     volumes:
       #- ./redisdata:/data
       - redisdata:/data
-      - redis.conf:/usr/local/etc/redis/redis.conf
+      #- redis.conf:/usr/local/etc/redis/redis.conf
       
   l2w:
     #build: .
