@@ -52,10 +52,10 @@ services:
     environment:
       - POSTGRES_PASSWORD=root
     volumes:
-      - ./configuration/postgresql/initdb:/docker-entrypoint-initdb.d
+      - configuration/postgresql/initdb:/docker-entrypoint-initdb.d
       #- postgresqldata:/var/lib/postgresql/data
       #- ./postgresqldata:/var/lib/postgresql/data
-      - ./postgresqldata:/var/lib/postgresql/data
+      - postgresqldata:/var/lib/postgresql/data
     ports:
       - 5432:5432
 
@@ -67,8 +67,8 @@ services:
     #  - ./redisdata:/data
     volumes:
       #- ./redisdata:/data
-      - ./redis-data:/var/lib/redis/data
-      - ./redis.conf:/usr/local/etc/redis/redis.conf
+      - redisdata:/data
+      - redis.conf:/usr/local/etc/redis/redis.conf
       
   l2w:
     #build: .
@@ -80,5 +80,5 @@ services:
 
 volumes:
   postgresqldata:
-  redis-data:
+  #redis-data:
   redisdata:
