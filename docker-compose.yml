@@ -61,10 +61,15 @@ services:
 
   redis:
     image: redis:5-alpine
+    hostname: redis
+    #volumes:
+    #  #- redisdata:/data
+    #  - ./redisdata:/data
+    networks:
+      - redis-net
     volumes:
-      #- redisdata:/data
-      - ./redisdata:/data
-
+      - ./redis-data:/data
+      
   l2w:
     #build: .
     image: dirkneethling/l2w:3
@@ -72,7 +77,11 @@ services:
       - ./configuration/l2w:/etc/l2w
     depends_on:
       - mosquitto
+      
+networks:
+  redis-net:
 
 volumes:
   postgresqldata:
-  redisdata:
+  #redisdata:
+  redis-data:
