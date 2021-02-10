@@ -65,8 +65,6 @@ services:
     #volumes:
     #  #- redisdata:/data
     #  - ./redisdata:/data
-    networks:
-      - redis-net
     volumes:
       - ./redis-data:/data
       
@@ -77,9 +75,6 @@ services:
       - ./configuration/l2w:/etc/l2w
     depends_on:
       - mosquitto
-      
-networks:
-  redis-net:
 
 volumes:
   postgresqldata:
